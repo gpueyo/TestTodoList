@@ -13,7 +13,10 @@
             <template v-if="Object.keys(tasks).length > 0">
                 <ul>
                     <li v-for="task in tasks">
-                        {{task.description}}
+                        <input type="checkbox" v-model="task.checked" @change="editTask( task.id )"/>
+                        <input type="text" v-model="task.description" @keyup="editTask( task.id )" maxlength="250"/>
+                        <button @click="delTask( task.id )">Eliminar</button>
+                        <p v-if="task.description.trim() == ''">La tarea debe contener texto</p>
                     </li>
                 </ul>
             </template>
@@ -41,27 +44,40 @@
         computed: {
             tasks (){
                 var result = this.$store.getters['getTasks'];
+                console.log(result);
                 return result ? result : {};
             },
         },
         methods: {
-            // Utils
-            resetErrors(){
-                this.errors.emptyTask = false
-            },
-
             // Functionalities
             addTask(){
                 console.log("ADD TASK");
                 var self = this;
-
-                self.resetErrors();
+                self.errors.emptyTask = false;
 
                 if ( self.newTask.trim() != "" ){
                     self.$store.dispatch('addTask', { desc: self.newTask });
                     self.newTask = "";
                 } else {
-                    self.errors.emptyTask = true
+                    self.errors.emptyTask = true;
+                }
+            },
+            editTask( taskId ){
+                console.log("EDIT TASK");
+                var self = this;
+                var task = self.tasks[ taskId ];                
+
+                if ( task && task.description.trim() != '' ){
+                    self.$store.dispatch('editTask', { task: task });
+                }
+            },
+            delTask( taskId ){
+                console.log("DELETE TASK");
+                var self = this;
+                var task = self.tasks[ taskId ];                
+
+                if ( task ){
+                    self.$store.dispatch('delTask', { id: taskId });
                 }
             },
         },

@@ -25,11 +25,33 @@ export default new Vuex.Store({
         addTask (context, params) {
             if ( params.desc ){
                 var tasks = context.state.tasks;
-                
-                tasks [ new Date().getTime() ] = {
+                let newId = new Date().getTime();
+
+                tasks [ newId ] = {
+                    id: newId,
                     description: params.desc,
                     checked: false
                 };
+                localStorage.setItem('tasks', JSON.stringify( tasks ));
+                                
+                context.commit('setTasks', { data: tasks });
+            }
+        },
+        editTask (context, params) {
+            if ( params.task ){
+                var tasks = context.state.tasks;
+                
+                Vue.set(tasks, params.task.id, { ...params.task });
+                localStorage.setItem('tasks', JSON.stringify( tasks ));
+                                
+                context.commit('setTasks', { data: tasks });
+            }
+        },
+        delTask (context, params) {
+            if ( params.id ){
+                var tasks = context.state.tasks;
+                
+                delete tasks[ params.id ];
                 localStorage.setItem('tasks', JSON.stringify( tasks ));
                                 
                 context.commit('setTasks', { data: tasks });
