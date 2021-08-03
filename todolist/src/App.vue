@@ -24,7 +24,7 @@
         @include justify-content(flex-start);
         @include align-items();
 
-        background-color: #FAFAFA;
+        background-color: $base-main;
         width: 100%;
         height: 100%;
         padding: 0;
@@ -44,13 +44,8 @@
         }
 
         #fullcontent {
-            padding-top: $menu-top-height;
-            max-width: $fullcontent-width;
-
-            #content {
-            }
+            @include align-items();
         }
-        
 
     }
     

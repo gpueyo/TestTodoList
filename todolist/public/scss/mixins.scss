@@ -51,6 +51,12 @@
     }
 }
 
+@function tint($color, $percentage) {
+    @return mix(#fff, $color, $percentage);
+}
+@function shade($color, $percentage) {
+  @return mix(#000, $color, $percentage);
+}
 
 // -> FLEX
 @mixin display-flex {

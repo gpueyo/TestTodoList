@@ -16,3 +16,23 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #d6d6d6;
 }
+
+
+.msg {
+    display: block;
+    width: auto;
+    width: fit-content;
+    max-width: calc( 100% - (30px * 2) );
+    padding: 12px 15px;
+    border-radius: 3px;
+
+    &.empty {
+        background-color: tint( $primary-main, 50% );        
+        color: shade( $primary-main, 70% );
+        font-size: 1rem;
+    }
+    &.error {
+        background-color: tint($error-main, 50%);        
+        color: shade($error-main, 70%);
+    }
+}
