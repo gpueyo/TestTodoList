@@ -231,7 +231,7 @@
                         background-size: 18px;
 
                         &:hover {
-                            background-image: img('delete_dark.svg');
+                            background-image: img('delete_error.svg');
                         }
                     }
                     &.disabled {
